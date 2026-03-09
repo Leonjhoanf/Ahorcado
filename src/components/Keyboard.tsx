@@ -2,34 +2,34 @@ import React, { useEffect } from 'react';
 
 interface Props {
   guessedLetters: Set<string>;
-  onGuess: (letter: string) => void;
+  onLetterPress: (letter: string) => void;
   disabled: boolean;
 }
 
-const LETTERS = 'ABCDEFGHIJKLMNÑOPQRSTUVWXYZ'.split('');
+const LETTERS = 'abcdefghijklmnopqrstuvwxyz'.split('');
 
-export const Keyboard: React.FC<Props> = ({ guessedLetters, onGuess, disabled }) => {
+export const Keyboard: React.FC<Props> = ({ guessedLetters, onLetterPress, disabled }) => {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (disabled) return;
-      const key = e.key.toUpperCase();
+      const key = e.key.toLowerCase();
       if (LETTERS.includes(key) && !guessedLetters.has(key)) {
-        onGuess(key);
+        onLetterPress(key);
       }
     };
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [guessedLetters, onGuess, disabled]);
+  }, [guessedLetters, onLetterPress, disabled]);
 
   return (
-    <div className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto mt-8">
+    <div data-testid="keyboard" className="flex flex-wrap justify-center gap-2 max-w-3xl mx-auto mt-8">
       {LETTERS.map((letter) => {
         const isGuessed = guessedLetters.has(letter);
         return (
           <button
             key={letter}
-            onClick={() => onGuess(letter)}
+            onClick={() => onLetterPress(letter)}
             disabled={isGuessed || disabled}
             className={`w-10 h-12 md:w-12 md:h-14 rounded-lg font-bold text-lg transition-all duration-200 ${
               isGuessed
