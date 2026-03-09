@@ -1,0 +1,5 @@
+{
+  "name": "AI Hangman",
+  "description": "A modern, conversational Hangman game powered by Google Gemini.",
+  "requestFramePermissions": []
+}
