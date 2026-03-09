@@ -8,7 +8,7 @@ interface Props {
 
 export const WordDisplay: React.FC<Props> = ({ word, guessedLetters, isGameOver }) => {
   return (
-    <div className="flex flex-wrap justify-center gap-2 md:gap-4 my-8">
+    <div data-testid="word-display" className="flex flex-wrap justify-center gap-2 md:gap-4 my-8">
       {word.split('').map((letter, index) => {
         const isGuessed = guessedLetters.has(letter);
         const showLetter = isGuessed || isGameOver;
@@ -21,7 +21,7 @@ export const WordDisplay: React.FC<Props> = ({ word, guessedLetters, isGameOver 
               isMissed ? 'border-red-500 text-red-500' : 'border-slate-800 dark:border-slate-200'
             }`}
           >
-            <span className={`transform transition-transform duration-500 ${showLetter ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
+            <span role="character" className={`transform transition-transform duration-500 ${showLetter ? 'scale-100 opacity-100' : 'scale-0 opacity-0'}`}>
               {showLetter ? letter : ''}
             </span>
           </div>
